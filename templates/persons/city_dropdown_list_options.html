@@ -1,4 +1,6 @@
 <option value="">---------</option>
-{% for city in cities %}
+
+<!-- From views line 33 -->
+{% for city in cities %} 
 <option value="{{ city.pk }}">{{ city.name }}</option>
 {% endfor %}

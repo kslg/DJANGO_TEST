@@ -10,6 +10,7 @@
 <body>
 <h2>Person Form</h2>
 
+<!-- Related to app urls file line 10 -->
 <form method="post" id="personForm" data-cities-url="{% url 'ajax_load_cities' %}">
     {% csrf_token %}
     {{ form.as_p }}
@@ -18,7 +19,7 @@
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-    $("#id_country").change(function () {
+    $("#id_country").change(function () { // references the country field in models line 21
         const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
         const countryId = $(this).val();  // get the selected country ID from the HTML input
 
