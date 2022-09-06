@@ -8,10 +8,10 @@
     <title>Dependent Dropdown in Django</title>
 </head>
 <body>
-<h2>Person Form</h2>
+<h2>Appointment Form</h2>
 
 <!-- Related to app urls file line 10 -->
-<form method="post" id="personForm" data-cities-url="{% url 'ajax_load_cities' %}">
+<form method="post" id="appointmentForm" data-classes-url="{% url 'ajax_load_classes' %}">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit">
@@ -19,17 +19,17 @@
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
-    $("#id_country").change(function () { // references the country field in models line 21
-        const url = $("#personForm").attr("data-cities-url");  // get the url of the `load_cities` view
-        const countryId = $(this).val();  // get the selected country ID from the HTML input
+    $("#id_teacher").change(function () { // references the teacher field in models line 21
+        const url = $("#appointmentForm").attr("data-classes-url");  // get the url of the `load_cities` view
+        const teacherId = $(this).val();  // get the selected teacher ID from the HTML input
 
         $.ajax({                       // initialize an AJAX request
             url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
             data: {
-                'country_id': countryId       // add the country id to the GET parameters
+                'teacher_id': teacherId       // add the teacher id to the GET parameters
             },
             success: function (data) {   // `data` is the return of the `load_cities` view function
-                $("#id_city").html(data);  // replace the contents of the city input with the data that came from the server
+                $("#id_class_name").html(data);  // replace the contents of the city input with the data that came from the server
                 /*
                 let html_data = '<option value="">---------</option>';
                 data.forEach(function (city) {

@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import City, Country, Person
+from .models import ClassName, Teacher, Appointment
 
-admin.site.register(City)
-admin.site.register(Country)
-admin.site.register(Person)
+admin.site.register(ClassName)
+admin.site.register(Teacher)
+admin.site.register(Appointment)

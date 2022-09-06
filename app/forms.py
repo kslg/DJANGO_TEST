@@ -1,23 +1,23 @@
 from django import forms
 
-from .models import Person, City
+from .models import Appointment, ClassName
 
 
-class PersonCreationForm(forms.ModelForm):
+class AppointmentCreationForm(forms.ModelForm):
     class Meta:
-        model = Person
+        model = Appointment
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['city'].queryset = City.objects.none()
+        self.fields['class_name'].queryset = ClassName.objects.none()
 
-        if 'country' in self.data:
+        if 'teacher' in self.data:
             try:
-                country_id = int(self.data.get('country'))
-                self.fields['city'].queryset = City.objects.filter(country_id=country_id).order_by('name')
+                teacher_id = int(self.data.get('teacher'))
+                self.fields['class_name'].queryset = ClassName.objects.filter(teacher_id=teacher_id).order_by('name')
             except (ValueError, TypeError):
                 pass  # invalid input from the client; ignore and fallback to empty City queryset
         elif self.instance.pk:
-            self.fields['city'].queryset = self.instance.country.city_set.order_by('name')
+            self.fields['class_name'].queryset = self.instance.teacher.classname_set.all()
 # Refereces the city field in models line 22

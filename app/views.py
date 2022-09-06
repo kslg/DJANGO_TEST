@@ -1,25 +1,25 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import PersonCreationForm
-from .models import Person, City
+from .forms import AppointmentCreationForm
+from .models import Appointment, ClassName
 
 
-def person_create_view(request):
-    form = PersonCreationForm()
+def appointment_create_view(request):
+    form = AppointmentCreationForm()
     if request.method == 'POST':
-        form = PersonCreationForm(request.POST)
+        form = AppointmentCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('person_add')
     return render(request, 'persons/home.html', {'form': form})
 
 
-def person_update_view(request, pk):
-    person = get_object_or_404(Person, pk=pk)
-    form = PersonCreationForm(instance=person)
+def appointment_update_view(request, pk):
+    appointment = get_object_or_404(Appointment, pk=pk)
+    form = AppointmentCreationForm(instance=appointment)
     if request.method == 'POST':
-        form = PersonCreationForm(request.POST, instance=person)
+        form = AppointmentCreationForm(request.POST, instance=appointment)
         if form.is_valid():
             form.save()
             return redirect('person_change', pk=pk)
@@ -27,8 +27,8 @@ def person_update_view(request, pk):
 
 
 # AJAX
-def load_cities(request):
-    country_id = request.GET.get('country_id')
-    cities = City.objects.filter(country_id=country_id)
-    return render(request, 'persons/city_dropdown_list_options.html', {'cities': cities})
+def load_classes(request):
+    teacher_id = request.GET.get('teacher_id')
+    classes = ClassName.objects.filter(teacher_id=teacher_id)
+    return render(request, 'persons/city_dropdown_list_options.html', {'classes': classes})
     # return JsonResponse(list(cities.values('id', 'name')), safe=False)
